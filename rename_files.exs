@@ -3,7 +3,7 @@
 defmodule Replacer do
   @moduledoc """
   synopsis:
-  rename all files in current dir containing pattern with pattern replaced once by replacement
+  rename in current dir all files containing pattern with pattern replaced once by replacement
   usage:
   $ cd destination
   $ rename_files.exs pattern replacement
