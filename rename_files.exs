@@ -14,9 +14,15 @@ defmodule Replacer do
 
   def main([pattern, replacement]) do
     for f <- File.ls!(), String.contains?(f, pattern) do
-      dest = String.replace(f, pattern, replacement)
-      if File.exists?(dest), do: (IO.puts("error dest file #{dest} exists.");:erlang.halt())
-      {f, dest}
+      {f,
+       String.replace(f, pattern, replacement)
+       |> tap(fn dest ->
+         File.exists?(dest) &&
+           (
+             IO.puts("error dest file #{dest} exists.")
+             :erlang.halt()
+           )
+       end)}
     end
     |> then(fn
       [] ->
